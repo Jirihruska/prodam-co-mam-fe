@@ -18,15 +18,17 @@
         text-black text-lg
       "
     >
-      <div class="grid grid-rows-2 select-none">
-        <span
-          @click="signIn()"
-          class="hover:bg-black hover:text-white p-4 rounded-md"
+      <div
+        v-click-outside="clickOutside"
+        class="grid grid-rows-2 select-none border-2 rounded-md border-black"
+      >
+        <span @click="goHome()" class="hover:bg-black hover:text-white p-4"
+          >Domů</span
+        >
+        <span @click="signIn()" class="hover:bg-black hover:text-white p-4"
           >Přihlášení</span
         >
-        <span
-          @click="signUp()"
-          class="hover:bg-black hover:text-white p-4 rounded-md"
+        <span @click="signUp()" class="hover:bg-black hover:text-white p-4"
           >Registrace</span
         >
       </div>
@@ -36,6 +38,7 @@
 
 <script>
 import UserSvg from "../svgComponents/User.vue";
+import vClickOutside from "v-click-outside";
 export default {
   components: {
     UserSvg,
@@ -43,9 +46,18 @@ export default {
   data: () => {
     return {
       menuOpen: false,
+      directives: {
+        clickOutside: vClickOutside.directive,
+      },
     };
   },
   methods: {
+    goHome() {
+      if (this.$route.name !== "landing-page") {
+        this.$router.push("/");
+        this.menuOpen = !this.menuOpen;
+      } else return (this.menuOpen = !this.menuOpen);
+    },
     signIn() {
       if (this.$route.name !== "login-page") {
         this.$router.push("/login-page");
@@ -57,6 +69,9 @@ export default {
         this.$router.push("/registration-page");
         this.menuOpen = !this.menuOpen;
       } else return (this.menuOpen = !this.menuOpen);
+    },
+    clickOutside() {
+      this.menuOpen = !this.menuOpen;
     },
   },
 };
