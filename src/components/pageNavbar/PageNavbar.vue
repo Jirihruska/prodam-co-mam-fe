@@ -1,54 +1,63 @@
 <template>
   <div>
+    <div class="absolute right-5 top-5 cursor-pointer">
+      <span @click="menuOpen = !menuOpen">
+        <UserSvg />
+      </span>
+    </div>
     <div
+      v-if="menuOpen"
       class="
-        w-full
-        h-12
-        bg-red-800
-        text-white
-        grid grid-rows-1 grid-cols-1 grid-flow-col
-        gap-4
+        absolute
+        font-bold
+        right-5
+        top-24
+        bg-white
+        rounded-md
+        cursor-pointer
+        text-black text-lg
       "
     >
-      <div class="p-3">
+      <div class="grid grid-rows-2 select-none">
         <span
-          @click="$router.push('/', () => {})"
-          class="inline-flex cursor-pointer font-bold select-none"
-          >ProdamCoMam</span
+          @click="signIn()"
+          class="hover:bg-black hover:text-white p-4 rounded-md"
+          >Přihlášení</span
         >
-      </div>
-      <div>
-        <div
-          class="
-            inline-flex
-            hover:bg-red-900
-            h-12
-            p-3
-            cursor-pointer
-            select-none
-          "
+        <span
+          @click="signUp()"
+          class="hover:bg-black hover:text-white p-4 rounded-md"
+          >Registrace</span
         >
-          <router-link to="/registration-page">Registrace</router-link>
-        </div>
-        <div
-          class="
-            inline-flex
-            hover:bg-red-900
-            h-12
-            p-3
-            cursor-pointer
-            select-none
-          "
-        >
-          <router-link to="/login-page">Přihlášení</router-link>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import UserSvg from "../svgComponents/User.vue";
 export default {
-  methods: {},
+  components: {
+    UserSvg,
+  },
+  data: () => {
+    return {
+      menuOpen: false,
+    };
+  },
+  methods: {
+    signIn() {
+      if (this.$route.name !== "login-page") {
+        this.$router.push("/login-page");
+        this.menuOpen = !this.menuOpen;
+      } else return (this.menuOpen = !this.menuOpen);
+    },
+    signUp() {
+      if (this.$route.name !== "registration-page") {
+        this.$router.push("/registration-page");
+        this.menuOpen = !this.menuOpen;
+      } else return (this.menuOpen = !this.menuOpen);
+    },
+  },
 };
 </script>
