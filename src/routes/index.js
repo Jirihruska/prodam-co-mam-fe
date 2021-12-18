@@ -4,7 +4,7 @@ export const routes = [
     name: "landing-page",
     component: () =>
       import(
-        /* webpackChunkName: "confirm-email-page" */ "../components/loginPage/LoginPage.vue"
+        /* webpackChunkName: "confirm-email-page" */ "../components/landingPage/LandingPage.vue"
       ),
   },
   {
