@@ -20,7 +20,7 @@
     >
       <div
         v-click-outside="clickOutside"
-        class="grid grid-rows-2 select-none border-2 rounded-md border-black"
+        class="grid grid-rows-2 select-none border-2 border-black"
       >
         <span @click="goHome()" class="hover:bg-black hover:text-white p-4"
           >Domů</span
