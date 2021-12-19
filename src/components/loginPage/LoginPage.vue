@@ -7,8 +7,8 @@
     </div>
     <div class="flex h-screen">
       <form class="m-auto w-1/2">
-        <Input label="Email" />
-        <Input label="Heslo" />
+        <Input :classStyles="'bg-red-800'" label="Email" />
+        <Input :classStyles="'bg-red-800'" label="Heslo" />
         <div class="flex justify-center pt-6">
           <button class="bg-red-800 text-white p-4 w-full hover:bg-red-900 text-md">
             Přihlásit

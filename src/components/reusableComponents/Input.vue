@@ -7,8 +7,9 @@
     </div>
     <div class="centered text-center">
       <input
-        class="centered focus:outline-none bg-red-800 text-white text-lg p-4 w-full"
+        class="centered focus:outline-none text-white text-lg p-4 w-full"
         :type="type"
+        :class="classStyles"
         required
       />
     </div>
@@ -21,6 +22,7 @@ export default {
     type: String,
     placeholder: String,
     label: String,
+    classStyles: String,
   },
 };
 </script>
