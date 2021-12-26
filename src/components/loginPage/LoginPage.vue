@@ -7,12 +7,28 @@
     </div>
     <div class="flex h-screen">
       <form class="m-auto w-1/2">
-        <Input :classStyles="'bg-red-800'" label="Email" />
-        <Input :classStyles="'bg-red-800'" label="Heslo" />
+        <Input
+        type="email"
+          :data="user.email"
+          :classStyles="'bg-red-800 text-white'"
+          :labelStyles="'text-red-800'"
+          label="Email"
+        />
+        <Input
+        type="password"
+          :labelStyles="'text-red-800'"
+          :data="user.password"
+          :classStyles="'bg-red-800 text-white'"
+          label="Heslo"
+        />
         <div class="flex justify-center pt-6">
-          <button class="bg-red-800 text-white p-4 w-full hover:bg-red-900 text-md">
+          <button
+            @click.prevent="logginHandler()"
+            class="bg-red-800 text-white p-4 w-full hover:bg-red-900 text-md font-semibold"
+          >
             Přihlásit
           </button>
+          {{ errors.message }}
         </div>
       </form>
     </div>
@@ -24,6 +40,21 @@ import Input from "../reusableComponents/Input.vue";
 export default {
   components: {
     Input,
+  },
+  data: () => {
+    return {
+      errors: {
+        invalid: false,
+        message: "",
+      },
+      user: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    logginHandler() {},
   },
 };
 </script>

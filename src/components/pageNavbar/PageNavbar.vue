@@ -11,6 +11,7 @@
         absolute
         font-bold
         right-5
+        w-40
         top-24
         bg-white
         rounded-md
