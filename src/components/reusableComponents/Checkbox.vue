@@ -1,5 +1,5 @@
 <template>
-<div class="grid grid-cols-6">
+<div class="grid grid-cols-6 pb-1">
   <div @click="pass()" :class="checkboxStyles" class="check-div col-start-1 col-end-2">{{value ? "✓":""}}</div>
   <div :class="labelStyles" class="col-start-2 col-end-7">{{labelText}}</div>
   </div>

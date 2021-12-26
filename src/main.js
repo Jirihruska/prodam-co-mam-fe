@@ -3,12 +3,14 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import { routes } from './routes/index.js'
 import vClickOutside from 'v-click-outside'
+import SimpleVueValidation from 'simple-vue-validator';
 import './index.css'
 import './tailwind.css'
 
-Vue.config.productionTip = false
-Vue.use(VueRouter)
-Vue.use(vClickOutside)
+Vue.config.productionTip = false;
+Vue.use(VueRouter);
+Vue.use(vClickOutside);
+Vue.use(SimpleVueValidation);
 
 const router = new VueRouter({
   mode: "history",
@@ -17,8 +19,6 @@ const router = new VueRouter({
   },
   routes: routes,
 })
-
-
 
 new Vue({
   router,

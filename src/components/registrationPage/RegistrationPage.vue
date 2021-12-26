@@ -2,30 +2,74 @@
   <div class="grid grid-cols-2 h-screen">
     <div class="flex h-screen bg-red-800">
       <form class="m-auto w-1/2">
-        <Input
-          type="email"
-          :autocompleteProp="'new-password'"
-          :data="user.email"
-          :classStyles="'text-red-800'"
-          :labelStyles="'text-white'"
-          label="Email"
-        />
-        <Input
-          :autocompleteProp="'new-password'"
-          type="password"
-          :data="user.password"
-          :labelStyles="'text-white'"
-          :classStyles="'text-red-800'"
-          label="Heslo"
-        />
-        <Input
-          :autocompleteProp="'new-password'"
-          type="password"
-          :data="user.password2"
-          :labelStyles="'text-white'"
-          :classStyles="'text-red-800'"
-          label="Heslo znovu"
-        />
+        <div class="container pb-8">
+          <div class="text-left w-1/3">
+            <label class="text-xl font-semibold select-none text-white"
+              >Email</label
+            >
+          </div>
+          <div class="centered text-center">
+            <input
+              type="email"
+              autocomplete="new-password"
+              v-model="email"
+              class="
+                centered
+                focus:outline-none
+                text-lg
+                p-4
+                w-full
+                text-red-800
+              "
+            />
+          </div>
+        </div>
+        <div class="container pb-8">
+          <div class="text-left w-1/3">
+            <label class="text-xl font-semibold select-none text-white"
+              >Heslo</label
+            >
+          </div>
+          <div class="centered text-center">
+            <input
+              type="password"
+              autocomplete="new-password"
+              v-model="password"
+              class="
+                centered
+                focus:outline-none
+                text-lg
+                p-4
+                w-full
+                text-red-800
+              "
+              required
+            />
+          </div>
+        </div>
+        <div class="container pb-8">
+          <div class="text-left w-1/3">
+            <label class="text-xl font-semibold select-none text-white"
+              >Heslo znova</label
+            >
+          </div>
+          <div class="centered text-center">
+            <input
+              type="password"
+              autocomplete="new-password"
+              v-model="password2"
+              class="
+                centered
+                focus:outline-none
+                text-lg
+                p-4
+                w-full
+                text-red-800
+              "
+              required
+            />
+          </div>
+        </div>
         <Checkbox
           v-on:pass="passValue($event)"
           :labelStyles="'text-white'"
@@ -34,7 +78,7 @@
         />
         <div class="flex justify-center pt-6">
           <button
-            @click.prevent="logginHandler()"
+            @click.prevent="registrationHandler()"
             class="
               bg-white
               text-red-800
@@ -45,9 +89,8 @@
               font-semibold
             "
           >
-            Zaregistrovat
+            {{ errors.invalid ? errors.message : "Zaregistrovat" }}
           </button>
-          {{ errors.message }}
         </div>
       </form>
     </div>
@@ -60,12 +103,10 @@
 </template>
 
 <script>
-import Input from "../reusableComponents/Input.vue";
 import Checkbox from "../reusableComponents/Checkbox.vue";
-import { useVuelidate } from "@vuelidate/core";
+import SimpleVueValidation from "simple-vue-validator";
 export default {
   components: {
-    Input,
     Checkbox,
   },
   data: () => {
@@ -74,11 +115,9 @@ export default {
         invalid: false,
         message: "",
       },
-      user: {
-        email: "",
-        password: "",
-        password2: "",
-      },
+      email: "",
+      password: "",
+      password2: "",
       accepted: false,
     };
   },
@@ -86,10 +125,64 @@ export default {
     passValue(e) {
       this.accepted = e;
     },
-    logginHandler() {},
+    registrationHandler() {
+      // Start with no errors
+      this.errors.invalid = false;
+      // VALIDATIONS
+      // If email has invalid format
+      this.$validate().then((success) => {
+        if (!success) {
+          this.errors.invalid = true;
+          this.errors.message = "Špatný formát e-mailu";
+          return;
+        }
+      });
+      // If email is empty
+      if (this.email === "" || undefined) {
+        this.errors.invalid = true;
+        this.errors.message = "E-mail není vyplněný";
+        return;
+      }
+      // If password is empty
+      if (this.password === "" || undefined) {
+        this.errors.invalid = true;
+        this.errors.message = "Heslo není vyplněno";
+        return;
+      }
+      // The password must be at least 6 characters long
+      if (this.password.length < 6) {
+        this.errors.invalid = true;
+        this.errors.message = "Heslo musí obsahovat alespoň 6 znaků"; 
+        return;
+      }
+      // If password2 is empty
+      if (this.password2 === "" || undefined) {
+        this.errors.invalid = true;
+        this.errors.message = "Heslo znova není vyplněno";
+        return;
+      }
+      // If password not match password2
+      if (this.password !== this.password2) {
+        this.errors.invalid = true;
+        this.errors.message = "Hesla se neshodují";
+        return;
+      }
+      // If GDPR is not accepted
+      if (!this.accepted) {
+        this.errors.invalid = true;
+        this.errors.message = "Musíte souhlasit s podmínkami";
+        return;
+      }
+      this.submit();
+    },
+    async submit() {
+      console.log('Registration was successfull!');
+    }
   },
-  setup() {
-    return { v$: useVuelidate() };
+  validators: {
+    email: (val) => {
+      return SimpleVueValidation.Validator.value(val).email();
+    },
   },
 };
 </script>

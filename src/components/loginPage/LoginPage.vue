@@ -7,22 +7,54 @@
     </div>
     <div class="flex h-screen">
       <form class="m-auto w-1/2">
-        <Input
-          :autocompleteProp="'new-password'"
-          type="email"
-          :data="user.email"
-          :classStyles="'bg-red-800 text-white'"
-          :labelStyles="'text-red-800'"
-          label="Email"
-        />
-        <Input
-          :autocompleteProp="'new-password'"
-          type="password"
-          :labelStyles="'text-red-800'"
-          :data="user.password"
-          :classStyles="'bg-red-800 text-white'"
-          label="Heslo"
-        />
+        <div class="container pb-8">
+          <div class="text-left w-1/3">
+            <label class="text-xl font-semibold select-none text-red-800"
+              >Email</label
+            >
+          </div>
+          <div class="centered text-center">
+            <input
+              type="email"
+              autocomplete="new-password"
+              v-model="email"
+              class="
+                centered
+                focus:outline-none
+                text-lg
+                p-4
+                w-full
+                text-white
+                bg-red-800
+              "
+              required
+            />
+          </div>
+        </div>
+        <div class="container pb-8">
+          <div class="text-left w-1/3">
+            <label class="text-xl font-semibold select-none text-red-800"
+              >Heslo</label
+            >
+          </div>
+          <div class="centered text-center">
+            <input
+              type="password"
+              autocomplete="new-password"
+              v-model="password"
+              class="
+                centered
+                focus:outline-none
+                text-lg
+                p-4
+                w-full
+                text-white
+                bg-red-800
+              "
+              required
+            />
+          </div>
+        </div>
         <div class="flex justify-center pt-6">
           <button
             @click.prevent="logginHandler()"
@@ -46,21 +78,15 @@
 </template>
 
 <script>
-import Input from "../reusableComponents/Input.vue";
 export default {
-  components: {
-    Input,
-  },
   data: () => {
     return {
       errors: {
         invalid: false,
         message: "",
       },
-      user: {
-        email: "",
-        password: "",
-      },
+      email: "",
+      password: "",
     };
   },
   methods: {
