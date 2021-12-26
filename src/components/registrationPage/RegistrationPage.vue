@@ -4,30 +4,46 @@
       <form class="m-auto w-1/2">
         <Input
           type="email"
+          :autocompleteProp="'new-password'"
           :data="user.email"
           :classStyles="'text-red-800'"
           :labelStyles="'text-white'"
           label="Email"
         />
         <Input
-        type="password"
+          :autocompleteProp="'new-password'"
+          type="password"
           :data="user.password"
           :labelStyles="'text-white'"
           :classStyles="'text-red-800'"
           label="Heslo"
         />
-         <Input
+        <Input
+          :autocompleteProp="'new-password'"
           type="password"
           :data="user.password2"
           :labelStyles="'text-white'"
           :classStyles="'text-red-800'"
           label="Heslo znovu"
         />
-        <Checkbox :labelStyles="'text-white'" :checkboxStyles="'bg-white text-red-800'" :labelText="'Souhlasím se zpracováním osobních údajů'" />
+        <Checkbox
+          v-on:pass="passValue($event)"
+          :labelStyles="'text-white'"
+          :checkboxStyles="'bg-white text-red-800'"
+          :labelText="'Souhlasím se zpracováním osobních údajů'"
+        />
         <div class="flex justify-center pt-6">
           <button
             @click.prevent="logginHandler()"
-            class="bg-white text-red-800 p-4 w-full hover:bg-gray-200 text-md font-semibold"
+            class="
+              bg-white
+              text-red-800
+              p-4
+              w-full
+              hover:bg-gray-200
+              text-md
+              font-semibold
+            "
           >
             Zaregistrovat
           </button>
@@ -46,10 +62,11 @@
 <script>
 import Input from "../reusableComponents/Input.vue";
 import Checkbox from "../reusableComponents/Checkbox.vue";
+import { useVuelidate } from "@vuelidate/core";
 export default {
   components: {
     Input,
-    Checkbox
+    Checkbox,
   },
   data: () => {
     return {
@@ -62,10 +79,17 @@ export default {
         password: "",
         password2: "",
       },
+      accepted: false,
     };
   },
   methods: {
+    passValue(e) {
+      this.accepted = e;
+    },
     logginHandler() {},
+  },
+  setup() {
+    return { v$: useVuelidate() };
   },
 };
 </script>

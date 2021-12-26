@@ -8,14 +8,16 @@
     <div class="flex h-screen">
       <form class="m-auto w-1/2">
         <Input
-        type="email"
+          :autocompleteProp="'new-password'"
+          type="email"
           :data="user.email"
           :classStyles="'bg-red-800 text-white'"
           :labelStyles="'text-red-800'"
           label="Email"
         />
         <Input
-        type="password"
+          :autocompleteProp="'new-password'"
+          type="password"
           :labelStyles="'text-red-800'"
           :data="user.password"
           :classStyles="'bg-red-800 text-white'"
@@ -24,7 +26,15 @@
         <div class="flex justify-center pt-6">
           <button
             @click.prevent="logginHandler()"
-            class="bg-red-800 text-white p-4 w-full hover:bg-red-900 text-md font-semibold"
+            class="
+              bg-red-800
+              text-white
+              p-4
+              w-full
+              hover:bg-red-900
+              text-md
+              font-semibold
+            "
           >
             Přihlásit
           </button>

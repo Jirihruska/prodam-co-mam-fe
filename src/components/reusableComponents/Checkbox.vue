@@ -1,6 +1,6 @@
 <template>
 <div class="grid grid-cols-6">
-  <div @click="value = !value" :class="checkboxStyles" class="check-div col-start-1 col-end-2">{{value ? "✓":""}}</div>
+  <div @click="pass()" :class="checkboxStyles" class="check-div col-start-1 col-end-2">{{value ? "✓":""}}</div>
   <div :class="labelStyles" class="col-start-2 col-end-7">{{labelText}}</div>
   </div>
 </template>
@@ -11,11 +11,16 @@ export default {
     checkboxStyles: String,
     labelText: String,
     labelStyles: String,
-    value: Boolean,
   },
   data: () => {
     return {
       value: false,
+    }
+  },
+  methods: {
+    pass() {
+      this.value = !this.value
+      this.$emit("pass", this.value);
     }
   }
 };

@@ -12,6 +12,7 @@
         :class="classStyles"
         required
         :v-model="data"
+        :autocomplete="autocompleteProp"
       />
     </div>
   </div>
@@ -26,6 +27,7 @@ export default {
     classStyles: String,
     labelStyles: String,
     data: String,
+    autocompleteProp: String,
   },
 };
 </script>
