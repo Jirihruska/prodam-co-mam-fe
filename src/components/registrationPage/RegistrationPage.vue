@@ -50,7 +50,7 @@
         <div class="container pb-8">
           <div class="text-left w-1/3">
             <label class="text-xl font-semibold select-none text-white"
-              >Heslo znova</label
+              >Potvrzení hesla</label
             >
           </div>
           <div class="centered text-center">
@@ -70,6 +70,46 @@
             />
           </div>
         </div>
+         <div class="container pb-8">
+          <div class="text-left w-1/3">
+            <label class="text-xl font-semibold select-none text-white"
+              >Oblast</label
+            >
+          </div>
+          <div class="centered text-center">
+            <select
+              type="select"
+              autocomplete="new-password"
+              v-model="selected"
+              class="
+                centered
+                focus:outline-none
+                text-lg
+                p-4
+                w-full
+                text-red-800
+              "
+              required>
+
+            <option>Hlavní město Praha</option>
+            <option>Jihočeský kraj</option>
+            <option>Jihomoravský kraj</option>
+            <option>Karlovarský kraj</option>
+            <option>Královehradecký kraj</option>
+            <option>Liberecký kraj</option>
+            <option>Moravskoslezský kraj</option>
+            <option>Olomoucký kraj</option>
+            <option>Pardubický kraj</option>
+            <option>Plzeňský kraj</option>
+            <option>Středočeský kraj</option>
+            <option>Ústecký kraj</option>
+            <option>Vysočina</option>
+            <option>Zlínský kraj</option>
+            
+            </select>
+          </div>
+        </div>
+        
         <Checkbox
           v-on:pass="passValue($event)"
           :labelStyles="'text-white'"
@@ -118,6 +158,7 @@ export default {
       email: "",
       password: "",
       password2: "",
+      selected: "",
       accepted: false,
     };
   },
@@ -165,6 +206,13 @@ export default {
       if (this.password !== this.password2) {
         this.errors.invalid = true;
         this.errors.message = "Hesla se neshodují";
+        return;
+        
+      }
+      //If city is nor selected
+      if (this.selected === "" || undefined) {
+        this.errors.invalid = true;
+        this.errors.message = "Nebyla vybrána oblast!";
         return;
       }
       // If GDPR is not accepted
