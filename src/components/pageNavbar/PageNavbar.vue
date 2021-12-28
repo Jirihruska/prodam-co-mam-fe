@@ -32,6 +32,9 @@
         <span @click="signUp()" class="hover:bg-black hover:text-white p-4"
           >Registrace</span
         >
+        <span @click="goHome(),logOut()" class="hover:bg-black hover:text-white p-4"
+          >Odhlásit</span
+        >
       </div>
     </div>
   </div>
@@ -70,6 +73,9 @@ export default {
         this.$router.push("/registration-page");
         this.menuOpen = !this.menuOpen;
       } else return (this.menuOpen = !this.menuOpen);
+    },
+    logOut() {
+      this.$alert("Úspěšné odhlášení.");
     },
     clickOutside() {
       this.menuOpen = !this.menuOpen;

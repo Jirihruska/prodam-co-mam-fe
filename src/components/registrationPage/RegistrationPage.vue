@@ -88,6 +88,7 @@
                 p-4
                 w-full
                 text-red-800
+                cursor-pointer
               "
               required>
 
@@ -199,7 +200,7 @@ export default {
       // If password2 is empty
       if (this.password2 === "" || undefined) {
         this.errors.invalid = true;
-        this.errors.message = "Heslo znova není vyplněno";
+        this.errors.message = "Prosím potvrďte heslo znovu";
         return;
       }
       // If password not match password2
@@ -209,7 +210,7 @@ export default {
         return;
         
       }
-      //If city is nor selected
+      //If area not selected
       if (this.selected === "" || undefined) {
         this.errors.invalid = true;
         this.errors.message = "Nebyla vybrána oblast!";

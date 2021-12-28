@@ -6,11 +6,13 @@ import vClickOutside from 'v-click-outside'
 import SimpleVueValidation from 'simple-vue-validator';
 import './index.css'
 import './tailwind.css'
+import VueSimpleAlert from "vue-simple-alert";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(vClickOutside);
 Vue.use(SimpleVueValidation);
+Vue.use(VueSimpleAlert);
 
 const router = new VueRouter({
   mode: "history",

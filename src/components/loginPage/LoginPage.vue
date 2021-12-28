@@ -57,7 +57,7 @@
         </div>
         <div class="flex justify-center pt-6">
           <button
-            @click.prevent="logginHandler()"
+           @click.prevent="logginHandler()"
             class="
               bg-red-800
               text-white
@@ -71,6 +71,21 @@
             Přihlásit
           </button>
           {{ errors.message }}
+        </div>
+        <div class="flex justify-center pt-6">
+          <button
+           @click.prevent="logginHandler()"
+            class="
+              bg-red-800
+              text-white
+              p-4
+              w-full
+              hover:bg-red-900
+              text-md
+              font-semibold
+            "
+          >Zapomenuté Heslo
+          </button>
         </div>
       </form>
     </div>
@@ -91,6 +106,7 @@ export default {
   },
   methods: {
     logginHandler() {},
+    
   },
 };
 </script>
