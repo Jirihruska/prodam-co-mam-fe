@@ -5,6 +5,28 @@
         <div class="container pb-8">
           <div class="text-left w-1/3">
             <label class="text-xl font-semibold select-none text-white"
+              >Přezdívka</label
+            >
+          </div>
+          <div class="centered text-center">
+            <input
+              type="text"
+              autocomplete="new-password"
+              v-model="username"
+              class="
+                centered
+                focus:outline-none
+                text-lg
+                p-4
+                w-full
+                text-red-800
+              "
+            />
+          </div>
+        </div>
+        <div class="container pb-8">
+          <div class="text-left w-1/3">
+            <label class="text-xl font-semibold select-none text-white"
               >Email</label
             >
           </div>
@@ -105,6 +127,7 @@
 <script>
 import Checkbox from "../reusableComponents/Checkbox.vue";
 import SimpleVueValidation from "simple-vue-validator";
+import { api_register } from "../../services/User";
 export default {
   components: {
     Checkbox,
@@ -115,6 +138,7 @@ export default {
         invalid: false,
         message: "",
       },
+      username: "",
       email: "",
       password: "",
       password2: "",
@@ -137,6 +161,12 @@ export default {
           return;
         }
       });
+      // If username is empty
+      if (this.username === "" || undefined) {
+        this.errors.invalid = true;
+        this.errors.message = "Přezdívka není vyplněná";
+        return;
+      }
       // If email is empty
       if (this.email === "" || undefined) {
         this.errors.invalid = true;
@@ -152,7 +182,7 @@ export default {
       // The password must be at least 6 characters long
       if (this.password.length < 6) {
         this.errors.invalid = true;
-        this.errors.message = "Heslo musí obsahovat alespoň 6 znaků"; 
+        this.errors.message = "Heslo musí obsahovat alespoň 6 znaků";
         return;
       }
       // If password2 is empty
@@ -176,8 +206,14 @@ export default {
       this.submit();
     },
     async submit() {
-      console.log('Registration was successfull!');
-    }
+      await api_register({
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      });
+      //this.$router.push("/confirmation-page");
+      this.$router.push("/login-page");
+    },
   },
   validators: {
     email: (val) => {

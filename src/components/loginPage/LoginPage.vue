@@ -16,7 +16,7 @@
           <div class="centered text-center">
             <input
               type="email"
-              autocomplete="new-password"
+              autocomplete="email"
               v-model="email"
               class="
                 centered
@@ -78,6 +78,9 @@
 </template>
 
 <script>
+import SimpleVueValidation from "simple-vue-validator";
+import { logged } from "../../services/LocalStorage";
+import { api_login } from "../../services/User";
 export default {
   data: () => {
     return {
@@ -90,7 +93,21 @@ export default {
     };
   },
   methods: {
-    logginHandler() {},
+    async logginHandler() {
+      await api_login({
+        email: this.email,
+        password: this.password,
+      });
+      // function logged() can be true or false "if (logged() is true)"
+      if (logged()) {
+        return this.$router.push("/dashboard");
+      }
+    },
+  },
+  validators: {
+    email: (val) => {
+      return SimpleVueValidation.Validator.value(val).email();
+    },
   },
 };
 </script>

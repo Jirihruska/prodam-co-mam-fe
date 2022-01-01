@@ -8,6 +8,12 @@ export const routes = [
       ),
   },
   {
+    path: "/confirmation-page",
+    name: "confirmation-page",
+    component: () =>
+      import(/* webpackChunkName: "preview-page" */ "../components/confirmationPage/ConfirmationPage.vue"),
+  },
+  {
     path: "/login-page",
     name: "login-page",
     component: () =>
@@ -20,5 +26,23 @@ export const routes = [
     name: "registration-page",
     component: () =>
       import(/* webpackChunkName: "preview-page" */ "../components/registrationPage/RegistrationPage.vue"),
+  },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: () =>
+      import(/* webpackChunkName: "preview-page" */ "../components/dashboard/LandingPage.vue"),
+  },
+  {
+    path: "/sell",
+    name: "sell",
+    component: () =>
+      import(/* webpackChunkName: "preview-page" */ "../components/sellProduct/SellProduct.vue"),
+  },
+  {
+    path: "/user-profile",
+    name: "user-profile",
+    component: () =>
+      import(/* webpackChunkName: "preview-page" */ "../components/userProfile/UserProfile.vue"),
   },
 ];
